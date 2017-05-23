@@ -2,7 +2,9 @@
 #include "socket.h"
 #include "file.h"
 #include "exception.h"
+#include "logger.h"
 #include "http_gen.h"
+
 
 #define MIN_SIZE 32678
 class IServer
@@ -48,7 +50,7 @@ public:
 	{
 		string str = CreateResponse(type, len, code, stat);
 		int oldLen = len;
-		int resPonseLen = str.length();
+		size_lt resPonseLen = str.length();
 		char *buf = new char[len + resPonseLen];
 
 		strcpy(buf, str.c_str());
@@ -67,10 +69,10 @@ public:
 		char buf[1024];
 
 		byte *data;
-		byte *buf1;
-		size_lt fsize = File::ReadAllBytes("e:\\out.txt", &buf1);
-		File::WriteAllBytes("e:\\11.is", buf1, fsize);
-		delete[] buf1;
+	//	byte *buf1;
+	//	size_lt fsize = File::ReadAllBytes("e:\\out.txt", &buf1);
+	//	File::WriteAllBytes("e:\\11.is", buf1, fsize);
+	//	delete[] buf1;
 
 		http_gen generator;
 		for (;;)
@@ -110,8 +112,8 @@ public:
 					string ty = string("*/*");
 
 					len = File::FileSize(path.c_str());
-					byte *buf;
-					int size = File::ReadAllBytes(path.c_str(), &data) + 1;
+					//byte *buf;
+					size_lt size = File::ReadAllBytes(path.c_str(), &data) + 1;
 					SendResponse(n, (char*)data, ty.c_str(), size, 200, "OK");
 
 
@@ -122,6 +124,13 @@ public:
 				// if (e.GetErrcode() == ENOENT)
 				//{
 				SendResponse(n, "File no found", "", strlen("File no found"), 404, "Error");
+				Logger::GetLogger().Log(e.what());
+				Logger::GetLogger().Log("\r\n");
+				Logger::GetLogger().Log(ParseException(e.GetCode()));
+				Logger::GetLogger().Log("\r\n\r\n");
+
+
+
 				//sprintf(response, "%s %s", error, "404\r\n Not Found");
 				//n->Send(response, strlen(response));
 				memset(buf, 2048, 0);

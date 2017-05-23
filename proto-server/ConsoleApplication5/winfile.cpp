@@ -15,8 +15,9 @@ void WinFile::ConvertFileName(const char *fileName, TCHAR *tFileName)
 #ifdef _UNICODE
 	ctow(fileName, tFileName);
 	return;
-#endif
+#else
 	strcpy(tFileName, fileName);
+#endif
 }
 
 WinFile::WinFile(const char *fileName)
@@ -273,7 +274,7 @@ void WinFile::Rename(const char *newFileName)
 
 bool WinFile::Exist()
 {
-	return Exist(_tFileName);
+	return Exist_TCHAR(_tFileName);
 }
 
 void WinFile::Delete()

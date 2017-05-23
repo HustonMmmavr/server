@@ -33,9 +33,11 @@ void http_gen::DecodeSpaces(string & str)
 void http_gen::GenIndex()
 {
 	byte *data;
-	FILE *f = fopen("../index.html", "w");
+	FILE  *f = fopen("../index.html", "w");
+	File file;
+	file.Open("../index.html", FileOpenMode::WRITENEWFILE);
 	int size = File::ReadAllBytes("../index_top.html", &data);
-	fwrite(data, 1, size, f);
+	file.WriteBlock(data, size);
 
 	WindowsDir w_dir;
 

@@ -89,73 +89,119 @@ private:
 		SetPermision(&permissionBuffer[8], 'x', permissionsFlag, S_IXOTH);
 	}
 
-	static DWORD ReadFilePermissions(LPCTSTR lpFileName, LPTSTR UsrNm, LPTSTR GrpNm)
+	static void ConvertCharToTCHAR(char *source, TCHAR *out)
+	{
+#ifdef _UNICODE
+		mbstowcs((wchar_t*)out, source, strlen(source) + 1);
+#else
+		strcpy(source, out);
+#endif
+	}
+
+	/*static int TCHARStringLength(TCHAR *string)
+	{
+#ifdef _UNICODE
+		return wcslen(string);
+#else 
+		return strlen(string);
+#endif
+	}
+
+	static void StringNTCHARCopy(TCHAR *source, TCHAR *dest, size_t size)
+	{
+#ifdef _UNICODE
+		wcsncpy(dest, source, size);
+#else
+		strncpy(dest, source, size);
+#endif
+	}
+
+	static void StringTCHARCopy(TCHAR *source, TCHAR *dest)
+	{
+#ifdef _UNICODE
+		wcscpy(dest, source);
+#else
+		strcpy(dest, source);
+#endif
+	}*/
+
+	static void ConvertTCHARToChar(TCHAR *source, char *out)
+	{
+#ifdef _UNICODE
+		wcstombs(out, (wchar_t*)source, wcslen((wchar_t*)source) + 1);
+#else
+		strcpy(source, out);
+#endif
+	}
+
+	static DWORD ReadFilePermissions(LPTSTR lpFileName, LPTSTR UsrNm, LPTSTR GrpNm)
 
 		/* ���������� ���������� �� ������ � ����� � ����� UNIX. */
 
 	{
-		//PSECURITY_DESCRIPTOR pSD = (PSECURITY_DESCRIPTOR)GlobalAlloc(GMEM_FIXED, 65536);;
-		//DWORD LenNeeded, PBits, iAce;
-		//BOOL DaclF, AclDefF, OwnerDefF, GroupDefF;
-		//BYTE DAcl[ACL_SIZE];
-		//PACL pAcl = (PACL)&DAcl;
-		//ACL_SIZE_INFORMATION ASizeInfo;
-		//PACCESS_ALLOWED_ACE pAce;
-		//BYTE AType;
-		//HANDLE ProcHeap = GetProcessHeap();
-		//PSID pOwnerSid, pGroupSid;
-		//TCHAR RefDomain[2][DOM_SIZE];
-		//DWORD RefDomCnt[] = { DOM_SIZE, DOM_SIZE };
-		//DWORD AcctSize[] = { ACCT_NAME_SIZE, ACCT_NAME_SIZE };
-		//SID_NAME_USE sNamUse[] = { SidTypeUser, SidTypeGroup };
+		PSECURITY_DESCRIPTOR pSD = (PSECURITY_DESCRIPTOR)GlobalAlloc(GMEM_FIXED, 65536);;
+		DWORD LenNeeded, PBits, iAce;
+		BOOL DaclF, AclDefF, OwnerDefF, GroupDefF;
+		BYTE DAcl[ACL_SIZE];
+		PACL pAcl = (PACL)&DAcl;
+		ACL_SIZE_INFORMATION ASizeInfo;
+		PACCESS_ALLOWED_ACE pAce;
+		BYTE AType;
+		HANDLE ProcHeap = GetProcessHeap();
+		PSID pOwnerSid, pGroupSid;
+		TCHAR RefDomain[2][DOM_SIZE];
+		DWORD RefDomCnt[] = { DOM_SIZE, DOM_SIZE };
+		DWORD AcctSize[] = { ACCT_NAME_SIZE, ACCT_NAME_SIZE };
+		SID_NAME_USE sNamUse[] = { SidTypeUser, SidTypeGroup };
 
-		///* �������� ��������� ������ ����������� ������������. */
-		//if (GetFileSecurity(lpFileName, OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION, pSD, 0, &LenNeeded))
-		//	ThrowExceptionWithCode("GetFile security error, GetLast Error", GetLastError());
+		/* �������� ��������� ������ ����������� ������������. */
+		if (GetFileSecurity(lpFileName, OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION, pSD, 0, &LenNeeded))
+			ThrowExceptionWithCode("GetFile security error, GetLast Error", GetLastError());
 
-		////		if ((pSD = HeapAlloc(ProcHeap, HEAP_GENERATE_EXCEPTIONS, LenNeeded)) == NULL)
-		////			ThrowExceptionWithCode("HeapAlloc security error, GetLast Error", GetLastError());
+		//		if ((pSD = HeapAlloc(ProcHeap, HEAP_GENERATE_EXCEPTIONS, LenNeeded)) == NULL)
+		//			ThrowExceptionWithCode("HeapAlloc security error, GetLast Error", GetLastError());
 
-		//if (!GetFileSecurity(lpFileName, OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION, pSD, LenNeeded, &LenNeeded))
-		//	ThrowExceptionWithCode("GetFile security error, GetLast Error", GetLastError());
+		if (!GetFileSecurity(lpFileName, OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION, pSD, LenNeeded, &LenNeeded))
+			ThrowExceptionWithCode("GetFile security error, GetLast Error", GetLastError());
 
 
-		//if (!GetSecurityDescriptorDacl(pSD, &DaclF, &pAcl, &AclDefF))
-		//	ThrowExceptionWithCode("GetSecurityDescriptorDacl  error, GetLast Error", GetLastError());
+		if (!GetSecurityDescriptorDacl(pSD, &DaclF, &pAcl, &AclDefF))
+			ThrowExceptionWithCode("GetSecurityDescriptorDacl  error, GetLast Error", GetLastError());
 
-		//if (!GetAclInformation(pAcl, &ASizeInfo, sizeof(ACL_SIZE_INFORMATION), AclSizeInformation))
-		//	ThrowExceptionWithCode("GetAclInformation  error, GetLast Error", GetLastError());
+		if (!GetAclInformation(pAcl, &ASizeInfo, sizeof(ACL_SIZE_INFORMATION), AclSizeInformation))
+			ThrowExceptionWithCode("GetAclInformation  error, GetLast Error", GetLastError());
 
-		//PBits = 0; /* ��������� ���������� �� ������ �� ������ ACL. */
+		PBits = 0; /* ��������� ���������� �� ������ �� ������ ACL. */
 
-		//for (iAce = 0; iAce < ASizeInfo.AceCount; iAce++)
-		//{
-		//	if (!GetAce(pAcl, iAce, (LPVOID*)&pAce))
-		//		ThrowExceptionWithCode("GetAce  error, GetLast Error", GetLastError());
-		//	AType = pAce->Header.AceType;
-		//	if (AType == ACCESS_ALLOWED_ACE_TYPE) PBits |= (0x1 << (8 - iAce));
-		//}
+		for (iAce = 0; iAce < ASizeInfo.AceCount; iAce++)
+		{
+			if (!GetAce(pAcl, iAce, (LPVOID*)&pAce))
+				ThrowExceptionWithCode("GetAce  error, GetLast Error", GetLastError());
+			AType = pAce->Header.AceType;
+			if (AType == ACCESS_ALLOWED_ACE_TYPE) PBits |= (0x1 << (8 - iAce));
+		}
 
-		///* ���������� ��� ��������� � ��������� ������. */
-		//if (!GetSecurityDescriptorOwner(pSD, &pOwnerSid, &OwnerDefF))
-		//	ThrowExceptionWithCode("GetSecurityDescriptorOwner  error, GetLast Error", GetLastError());
+		/* ���������� ��� ��������� � ��������� ������. */
+		if (!GetSecurityDescriptorOwner(pSD, &pOwnerSid, &OwnerDefF))
+			ThrowExceptionWithCode("GetSecurityDescriptorOwner  error, GetLast Error", GetLastError());
 
-		//if (!GetSecurityDescriptorGroup(pSD, &pGroupSid, &GroupDefF))
-		//	ThrowExceptionWithCode("GetSecurityDescriptorOwner  error, GetLast Error", GetLastError());
+		if (!GetSecurityDescriptorGroup(pSD, &pGroupSid, &GroupDefF))
+			ThrowExceptionWithCode("GetSecurityDescriptorOwner  error, GetLast Error", GetLastError());
 
-		//if (!LookupAccountSid(NULL, pOwnerSid, UsrNm, &AcctSize[0], GrpNm, &RefDomCnt[0], &sNamUse[0]))
-		//{
-		//	lstrcpyW(UsrNm, L"No information");
-		//	lstrcpyW(GrpNm, L"No information");
-		//}
-
-		//ThrowExceptionWithCode("LookupAccountSid  error, GetLast Error", GetLastError());
-
-		//if (!LookupAccountSid(NULL, pGroupSid, GrpNm, &AcctSize[1], RefDomain[1], &RefDomCnt[1], &sNamUse[1]))
-		//	GrpNm = L'\0';//ThrowExceptionWithCode("LookupAccountSid  error, GetLast Error", GetLastError());
+		if (!LookupAccountSid(NULL, pOwnerSid, UsrNm, &AcctSize[0], GrpNm, &RefDomCnt[0], &sNamUse[0]))
+		{
+			ConvertCharToTCHAR("No information", UsrNm);
+			ConvertCharToTCHAR("No information", GrpNm);
+		}
 		//else
-		//	wcscpy(GrpNm, RefDomain[1]);
-	//	GlobalFree(pSD);
+		//	ThrowExceptionWithCode("LookupAccountSid  error, GetLast Error", GetLastError());
+
+		if (!LookupAccountSid(NULL, pGroupSid, GrpNm, &AcctSize[1], RefDomain[1], &RefDomCnt[1], &sNamUse[1]))
+			GrpNm = (TCHAR)'\0';//ThrowExceptionWithCode("LookupAccountSid  error, GetLast Error", GetLastError());
+		else
+			//StringTCHARCopy(GrpLookupAccountSidNm, RefDomain[1]);
+			_tcscpy((TCHAR*)GrpNm, RefDomain[1]);
+		GlobalFree(pSD);
 		return 0;//PBits;
 	}
 
@@ -163,103 +209,106 @@ public:
 
 	static char *ListFiles(const char *path)
 	{
-		//char absoluteName[MAX_PATH];
+		char absoluteName[MAX_PATH];
 
-		//char fileName[MAX_PATH];
-		//sprintf(fileName, "%s%s", path, "\\*");
-		////= "C:\\Users\\ho\\Downloads\\*";
-		//int lenDir = strlen(fileName);
-		//WIN32_FIND_DATA info;
-		//FILETIME time;
-		//SYSTEMTIME sysTime;
-		//char fName[MAX_PATH];	// current file name
-		//char permission[10];	// file permissions
-		//char resultString[1024];
-		//char fileType;
-		//char cAccName[128] = "";
-		//char cGrName[128] = "";
-		//unsigned long long fSize;
-		//wchar_t wAccName[ACCT_NAME_SIZE];
-		//wchar_t wGrName[ACCT_NAME_SIZE];
-		//wchar_t wName[MAX_PATH]; // current absolutge path file
-		//wchar_t *dirName = new wchar_t[MAX_PATH];
-		//int sizeListFiles = 1024;
-		//int currentLen = 0;
-		//char *listFiles = new char[sizeListFiles];
-		//listFiles[0] = '\0';
-		////if (!ListFiles)
-		//// init
+		char fileName[MAX_PATH];
+		sprintf(fileName, "%s%s", path, "\\*");
+		//= "C:\\Users\\ho\\Downloads\\*";
+		size_t lenDir = strlen(fileName);
+		WIN32_FIND_DATA info;
+		FILETIME time;
+		SYSTEMTIME sysTime;
+		char fName[MAX_PATH];	// current file name
+		char permission[10];	// file permissions
+		char resultString[1024];
+		char fileType;
+		char cAccName[128] = "";
+		char cGrName[128] = "";
+		unsigned long long fSize;
+		TCHAR tAccName[ACCT_NAME_SIZE];
+		TCHAR tGrName[ACCT_NAME_SIZE];
+		TCHAR tName[MAX_PATH];
+		TCHAR *dirName = new TCHAR[MAX_PATH];
+		int sizeListFiles = 1024;
+		int currentLen = 0;
+		char *listFiles = new char[sizeListFiles];
+		listFiles[0] = '\0';
+		//if (!ListFiles)
+		// init
+		ConvertCharToTCHAR(fileName, dirName);
 		//mbstowcs(dirName, fileName, lenDir + 1);
-		//HANDLE hDir = FindFirstFile(dirName, &info);//FindFirstFileEx(dirName, FindExInfoBasic, &info , FindExSearchNameMatch, NULL, 0);
-		//wcsncpy(wName, dirName, lenDir - 1);	// without *
-		//permission[9] = 0;
+		HANDLE hDir = FindFirstFile(dirName, &info);//FindFirstFileEx(dirName, FindExInfoBasic, &info , FindExSearchNameMatch, NULL, 0);
+		_tcsncpy(tName, dirName, lenDir - 1);
+		//_tcsncpy(tName, dirName, lenDir - 1);	// without *
+		permission[9] = 0;
 
-		///*
-		//Txxxxxxxxx[]uk[]user[]group[]size[]mm[]dd[]yytt[]name CR, LF
-		//���,
-		//T � ��� ��������(�d� � �������, � - � � ����, �l� � ������ � �.�.);
-		//xxxxxxxxx � �������� ������ �����;
-		//user � ������������, �������� �����;
-		//group � ������ ���������;
-		//size � ������ ��������;
-		//mm � ����� �������� �������� � ��������� ����, �������� �jul�;
-		//dd � ���� ������ �������� ��������;
-		//yytt � ����� ����� ���� ��� ��� ����� �������� ��������;
-		//name � ��� ��������(�����, ��������, ������);
-		//[] � ���� ��� ����� ��������.
-		//*/
+		/*
+		Txxxxxxxxx[]uk[]user[]group[]size[]mm[]dd[]yytt[]name CR, LF
+		���,
+		T � ��� ��������(�d� � �������, � - � � ����, �l� � ������ � �.�.);
+		xxxxxxxxx � �������� ������ �����;
+		user � ������������, �������� �����;
+		group � ������ ���������;
+		size � ������ ��������;
+		mm � ����� �������� �������� � ��������� ����, �������� �jul�;
+		dd � ���� ������ �������� ��������;
+		yytt � ����� ����� ���� ��� ��� ����� �������� ��������;
+		name � ��� ��������(�����, ��������, ������);
+		[] � ���� ��� ����� ��������.
+		*/
+		do
+		{
+			ConvertTCHARToChar(info.cFileName, fName);
+			if (fName[0] != '.')
+			{
+				// Get file absolute name
+				memcpy(tName + lenDir - 1, info.cFileName, (_tcslen(info.cFileName) + 1) * sizeof(TCHAR));
+				ConvertTCHARToChar(tName, absoluteName);
+				//wcstombs(absoluteName, tName, wcslen(wName) + 1);
+				// Get file type
+				if (info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+					fileType = 'd';
+				else if (info.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
+					fileType = 'l';
+				else
+					fileType = '-';
 
-		//do
-		//{
-		//	wcstombs(fName, info.cFileName, wcslen(info.cFileName) + 1);
-		//	if (fName[0] != '.')
-		//	{
-		//		// Get file absolute name
-		//		memcpy(wName + lenDir - 1, info.cFileName, (wcslen(info.cFileName) + 1) * sizeof(wchar_t));
-		//		wcstombs(absoluteName, wName, wcslen(wName) + 1);
-		//		// Get file type
-		//		if (info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-		//			fileType = 'd';
-		//		else if (info.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
-		//			fileType = 'l';
-		//		else
-		//			fileType = '-';
+				// Get File permissions and file group and file owner
+				DWORD res = ReadFilePermissions(tName, tAccName, tGrName);
 
-		//		// Get File permissions and file group and file owner
-		//		DWORD res = ReadFilePermissions(wName, wAccName, wGrName);
+				// Parse byte permissions to human understand rwxrwwxrwx to char
+				CharPermissions(permission, res);
 
-		//		// Parse byte permissions to human understand rwxrwwxrwx to char
-		//		CharPermissions(permission, res);
+				// Get cha acc Name and domin Name
+				ConvertTCHARToChar(tAccName, cAccName);
+				ConvertTCHARToChar(tGrName, cGrName);
 
-		//		// Get cha acc Name and domin Name
-		//		wcstombs(cAccName, wAccName, wcslen(wAccName) + 1);
-		//		wcstombs(cGrName, wGrName, wcslen(wGrName) + 1);
+				// Get time creati
+				time = info.ftCreationTime;
+				FileTimeToSystemTime(&time, &sysTime);
 
-		//		// Get time creati
-		//		time = info.ftCreationTime;
-		//		FileTimeToSystemTime(&time, &sysTime);
+				// fileSize
+				if (fileType == 'd')
+					fSize = 0;
+				else
+					fSize = File::FileSize(absoluteName);
 
-		//		// fileSize
-		//		if (fileType == 'd')
-		//			fSize = 0;
-		//		else
-		//			fSize = File::FileSize(absoluteName);
+				// write data to resultString
+				sprintf(resultString, "%s;", fName);
+				size_t len = strlen(resultString);
 
-		//		// write data to resultString
-		//		sprintf(resultString, "%s;", fName);
-		//		int len = strlen(resultString);
+				if (currentLen + len >= sizeListFiles)
+					ResizeString(&listFiles, &sizeListFiles, 2);
 
-		//		if (currentLen + len >= sizeListFiles)
-		//			ResizeString(&listFiles, &sizeListFiles, 2);
+				currentLen += len;
+				strcat(listFiles, resultString);
 
-		//		currentLen += len;
-		//		strcat(listFiles, resultString);
-
-		//	}
-		//} while (FindNextFile(hDir, &info) != NULL);
+			}
+		} while (FindNextFile(hDir, &info) != NULL);
 		return NULL;// listFiles;
 	}
 
+	
 };
 
 #endif

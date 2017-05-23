@@ -2,27 +2,29 @@
 // ser.cpp: определяет точку входа для консольного приложения.
 
 #include "stdafx.h"
-#include "htp.h"
-#include "header.h"
+#include "httpserver.h"
+//#include "header.h"
 #include <stdlib.h>
 #include <vector>
 #include "file.h"
-#include "header1.h"
+#include "logger.h"
+#include "windir.h"
 int main()
 {
 	try
 	{
 		setlocale(LC_CTYPE, ".1251");
+		WindowsDir::ListFiles("../");
 		char **strings;// { "afnwklef", "kfkewf","akef" };
 		//File::WriteAllCharStrings("newFile", strings, 3);
 
-		int num = File::ReadAllCharStrings("newFile", &strings);
+		size_lt num = File::ReadAllCharStrings("newFile", &strings);
 		Logger &logger = Logger::GetLogger();
 		logger.Log("error\r\n");
 		logger.Log("\r\n");
 		logger.Log("\r\n");
 		logger.Log("no");
-		//Server::GetServer().Commander();
+		Server::GetServer().Commander();
 	}
 	catch (Exception &e)
 	{
