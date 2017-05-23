@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+	<html>
+		<head>
+			<title>!DOCTYPE</title>
+			<meta charset="utf-8" name="keywords">
+			<link rel="stylesheet" href="style/style.css">
+            <link rel="stylesheet" href="style/font-awesome.css">
+            <link rel="stylesheet" href="roboto/roboto.css">
+		</head>
+		<body>
+			<div>
+				<a href="#windPopUp" id="gearId"><img src="image/3.png">
+					<a href="#x" id="windPopUp" class="backgroundPopUp">
+						<div class="popUp">
+							<a class="close" title="Close" href="#close"></a>
+ 
+						</div>
+					</a>
+				</a>
+			</div>
+            <style>
+                .buttonRed{
+                    transition-property: background-color;
+                    transition-duration: 2s;
+                }
+
+                .buttonGreen{
+                    transition-property: background-color;
+                    transition-duration: 2s;
+                }
+            </style>
+            
+            <script>
+                function color_change(color, nomber)
+                {
+                    if(color == 'red') 
+                    {
+                        var div_element = document.getElementById('questMenu');
+                        div_element.children[nomber].children[1].children[1].style.backgroundColor = 'transparent';
+                        div_element.children[nomber].children[1].children[0].style.backgroundColor = 'red';
+                    }
+                    if(color == 'green') 
+                    {
+                        var div_element = document.getElementById('questMenu');
+                        div_element.children[nomber].children[1].children[1].style.backgroundColor = 'green';
+                        div_element.children[nomber].children[1].children[0].style.backgroundColor = 'transparent';
+                    }
+                }
+            </script>
+		</body>
+</html>
+
+
+
+
+
+

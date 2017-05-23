@@ -1,0 +1,33 @@
+﻿TABLE{
+    background-color:#bbb;
+	background-size: cover;
+	width:100%;
+	height: 100%;
+    border-collapse: collapse;
+}
+
+html, body{ 
+	margin:0px; 
+	padding:0px; 
+}
+
+.head_site {
+	margin: 0px;
+	padding: 6px;
+}
+
+#head_line{
+	margin: 0px;
+	padding: 0px;	
+}
+
+#emblem{
+	margin: 0px;
+	padding: 4px;
+}
+
+.elFilm{
+	margin: 0px;
+	padding: 2%;
+	
+}

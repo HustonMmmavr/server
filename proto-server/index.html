@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/style_pop.css">
+        <link rel="stylesheet" href="css/roboto.css">
+    </head>
+    <body>
+        <script>
+            function hide(nodeId)
+            {
+                var node = document.getElementById(nodeId);
+                if (node)
+                {
+                    node.style.display = 'none';
+                } 
+            }
+
+            function show(nodeId)
+            {
+                var node = document.getElementById(nodeId);
+                if (node)
+                {
+                    node.style.display = 'block';
+                } 
+            }
+        </script>
+        <style>
+                .buttonRed{
+                    transition-property: background-color;
+                    transition-duration: 1s;
+                }
+
+                .buttonGreen{
+                    transition-property: background-color;
+                    transition-duration: 1s;
+                }
+            </style>
+            
+            <script>
+                function color_change(color, nomber)
+                {
+                    if(color == 'red') 
+                    {
+                        var div_element = document.getElementById('questMenu');
+                        div_element.children[nomber].children[1].children[1].style.backgroundColor = 'transparent';
+                        div_element.children[nomber].children[1].children[0].style.backgroundColor = 'red';
+                    }
+                    if(color == 'green') 
+                    {
+                        var div_element = document.getElementById('questMenu');
+                        div_element.children[nomber].children[1].children[1].style.backgroundColor = 'green';
+                        div_element.children[nomber].children[1].children[0].style.backgroundColor = 'transparent';
+                    }
+                }
+            </script>
+        
+        
+    <div class="cover_all">
+        <div class="cov_flex">
+        <div class="bla1"><a href="#windPopUp" id="gear"><i class="fa fa-cog"></i><a href="#x" id="windPopUp" class="backgroundPopUp">
+						<div class="popUp">
+							<a class="close" title="Закрыть" href="#close"></a>
+                                                       <div id="divPopUp">
+                                <div id="headQuestMenu">Set your server</div>
+                                <div id="questMenu">
+                                    <div class="elementQuestMenu topBorder">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Search for media in internet</div> 
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',0)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',0)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Search posters for films</div> 
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',1)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',1)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Some cool settings</div> 
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',2)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',2)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Another cool settings</div>
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',3)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',3)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Searchfor media in internet</div> 
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',4)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',4)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Search posters for films</div>
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',5)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',5)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Some cool settings</div> 
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',6)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',6)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="elementQuestMenu bottomBorder">
+                                        <div class="oberHeader">
+                                            <div class="textQuest">Another cool setting</div>
+                                            <div><a><i class="fa fa-question-circle-o potitIcon" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <div class="selectItem">
+                                            <button type="button" value="No" onclick="color_change('red',7)" class="buttonRed">No</button>
+                                            <button type="button" value="Yes" onclick="color_change('green',7)" class="buttonGreen">Yes</button>
+                                        </div>
+                                    </div>
+                                    <div class="selectItem">
+                                        <button type="button" value="Next" class="buttonNext">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</a></a></div>
+            
+            
+            <form method="get" action="/search" target="_blank"><div class="bla2">
+                         
+            
+            <button id="search_button"></button>
+            </div></form>
+        
+        <div class="bla3"><img src="pic/emblem.png" id="emblem" height="50"></div>
+        
+        
+
+        
+        
+        
+        <div class="cover">          
+            <div class="poster_all"><div class="poster poster_width"><a href="video_player.html?movie=3.mp4"><img src="pic/ph.jpg"><div class="library_file_name">3.mp4</div></a></div><div class="poster poster_width"><a href="video_player.html?movie=scbw%20long.mp4"><img src="pic/ph.jpg"><div class="library_file_name">scbw long.mp4</div></a></div>            </div>
+        </div>
+            
+    </div>       
+    <footer>
+        <div class="copyright"><img src="pic/emblem_small.png">© 2017</div>
+        <div class="terms"><a href="#windPopUpterms">Terms of use<a href="#x" id="windPopUpterms" class="backgroundPopUp">
+						<div class="popUp">
+							<a class="close" title="Закрыть" href="#close"></a>
+                            <p>Пользовательское соглашение, бла-бла-бла</p>
+						</div>
+					</a></a></div></footer></div>
+    </body>
+</html>
