@@ -142,8 +142,10 @@
     <ClInclude Include="file.h" />
     <ClInclude Include="fileexception.h" />
     <ClInclude Include="functons.h" />
-    <ClInclude Include="Header.h" />
-    <ClInclude Include="htp.h" />
+    <ClInclude Include="allocator.h" />
+    <ClInclude Include="logger.h" />
+    <ClInclude Include="httprequest.h" />
+    <ClInclude Include="httpserver.h" />
     <ClInclude Include="http_gen.h" />
     <ClInclude Include="ifile.h" />
     <ClInclude Include="isocket.h" />

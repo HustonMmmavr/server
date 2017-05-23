@@ -101,6 +101,11 @@ public:
 		this->errCode = errCode;
 	}
 
+	long GetCode()
+	{
+		return errCode;
+	}
+
 	//Exception()
 	//{
 	//	memset(message, 0, sizeof(message));

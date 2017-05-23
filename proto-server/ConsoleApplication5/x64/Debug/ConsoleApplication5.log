@@ -1,0 +1,29 @@
+﻿  file.cpp
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(44): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(71): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(78): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(1769): note:  см. объявление "sprintf"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(84): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(89): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(1769): note:  см. объявление "sprintf"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(95): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\exception.h(100): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\fileexception.h(31): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(1769): note:  см. объявление "sprintf"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\fileexception.h(37): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(1769): note:  см. объявление "sprintf"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\fileexception.h(48): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\file.cpp(44): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\string.h(129): note:  см. объявление "strcpy"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\file.cpp(202): warning C4244: инициализация: преобразование "size_lt" в "int", возможна потеря данных
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\file.cpp(361): warning C4244: инициализация: преобразование "size_lt" в "int", возможна потеря данных
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\file.cpp(149): warning C4700: использована неинициализированная локальная переменная "meta"
+c:\users\bigbrother\desktop\msiyb\proto-server\consoleapplication5\file.cpp(419): warning C4700: использована неинициализированная локальная переменная "meta"
+  ConsoleApplication5.vcxproj -> C:\Users\bigbrother\Desktop\msiyb\proto-server\x64\Debug\ConsoleApplication5.exe
+  ConsoleApplication5.vcxproj -> C:\Users\bigbrother\Desktop\msiyb\proto-server\x64\Debug\ConsoleApplication5.pdb (Partial PDB)

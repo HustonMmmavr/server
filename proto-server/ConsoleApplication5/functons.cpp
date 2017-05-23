@@ -41,7 +41,7 @@ size_lt ConvertCharStringArrayToByte(byte** byteArr, char **str, size_lt cnt)
 	size_lt countBytes = 0;
 	for (size_lt i = 0; i < cnt; i++)
 	{
-		countBytes += strlen(str[i]);
+		countBytes += strlen(str[i]) + 1;
 	}
 
 	byte* buf = new byte[countBytes];
@@ -56,6 +56,7 @@ size_lt ConvertCharStringArrayToByte(byte** byteArr, char **str, size_lt cnt)
 		size_lt len = strlen(str[i]);
 		memcpy(buf + pos, str[i], len);
 		pos += len;
+		buf[pos++] = '\n';
 	}
 	*byteArr = buf;
 	return countBytes;

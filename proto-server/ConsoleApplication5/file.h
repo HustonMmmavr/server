@@ -34,7 +34,7 @@ public:
 	\param[in] fileName Name of file to work with.
 	\param[in] bufferSize Maximum size of cache buffer.
 	*/
-	File(const char* fileName = nullptr, size_lt bufferSize = FILE_BUFFER_SIZE);
+	File(const char* fileName, size_lt bufferSize = FILE_BUFFER_SIZE);
 
 	File();
 	/*!
@@ -221,7 +221,7 @@ public:
 	\param[in] size Size of data buffer.
 	\param[in] mode Open file mode.
 	*/
-	static void WriteAllBytes(const char *fileName, byte* data, size_lt size, FileOpenMode mode = WRITEONEXISTS);
+	static void WriteAllBytes(const char *fileName, byte* data, size_lt size, FileOpenMode mode = WRITENEWFILE);
 	
 	/*!
 	Open file and write all data (in char string format) in it. Static.
@@ -230,7 +230,7 @@ public:
 	\param[in] countStrings Amount of strings to write.
 	\param[in] mode Open file mode.
 	*/ 
-	static void WriteAllCharStrings(const char *fileName, char** charStrings, size_lt countStrings, FileOpenMode mode = WRITEONEXISTS);
+	static void WriteAllCharStrings(const char *fileName, char** charStrings, size_lt countStrings, FileOpenMode mode = WRITENEWFILE);
 	
 	/*!
 	Open file and write all data (in string format) in it. Static.
@@ -239,7 +239,7 @@ public:
 	\param[in] countStrings Amount of strings to write.
 	\param[in] mode Open file mode.
 	*/
-	static void WriteAllStrings(const char *fileName, string *strings, size_lt countStrings, FileOpenMode mode = WRITEONEXISTS);
+	static void WriteAllStrings(const char *fileName, string *strings, size_lt countStrings, FileOpenMode mode = WRITENEWFILE);
 
 	/*!
 	\TODO

@@ -28,10 +28,11 @@ typedef struct
 /// Opening file rule
 typedef enum
 {
-	READONLY,		///< Open in READ ONLY mode
-	WRITEONEXISTS,	///< Write in end of the existing file or create new file
-	WRITE,			///< Create new file to write (or truncate existing file to write after)
-	READWRITE		///< Open file for reading and writing (will truncate existing file)
+	READONLY,		///< Open existing file in READ ONLY mode
+	WRITENEWFILE,	///< Creates new file 
+	WRITE,			///< Open existing file to write (or truncate existing file to write after)
+	READWRITE,		///< Open file for reading and writing (will truncate existing file)
+ 	WRRITEATTEHEND ///< Write in end of the existing file or create new file
 } FileOpenMode;
 
 /// Position used as reference for the offset.

@@ -79,13 +79,29 @@ File::~File()
 
 void File::Open(const char *fileName, FileOpenMode mode)
 {
-	_file->Open(fileName, mode);
+	if (_opened)
+		Close();
+	if (mode == FileOpenMode::WRRITEATTEHEND)
+	{
+		_file->Open(fileName, FileOpenMode::READWRITE);
+		_file->Seek(0, SeekReference::END);
+	}
+	else
+		_file->Open(fileName, mode);
 }
 
 void File::Open(FileOpenMode mode)
 {
 	// TODO check previous opened file
-	_file->Open(mode);
+	if (_opened)
+		Close();
+	if (mode == FileOpenMode::WRRITEATTEHEND)
+	{
+		_file->Open(_fileName, FileOpenMode::READWRITE);
+		_file->Seek(0, SeekReference::END);
+	}
+	else
+		_file->Open(_fileName, mode);
 }
 
 void File::Close()
@@ -357,7 +373,8 @@ size_lt File::ReadStringFromBuffer(char **string, byte *buf, size_lt *startPos, 
 			Resize(&str, &sizeString, sizeString * rCoef);
 		}
 
-		str[idx++] = buf[i];
+		if (buf[i] != '\n')
+			str[idx++] = buf[i];
 
 		if (buf[i] == '\n' || buf[i] == '\0' || i == sizeBuf - 1)
 		{

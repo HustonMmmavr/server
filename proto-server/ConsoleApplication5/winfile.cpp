@@ -5,8 +5,9 @@
 //#define TCHAR char;
 WinFile::WinFile()
 {
-	_fileName = nullptr;
-	_wFileName = nullptr;
+	_fileName = new char[MAX_PATH];
+	_tFileName = new TCHAR[MAX_PATH];
+	_opened = false;
 }
 
 void WinFile::ConvertFileName(const char *fileName, TCHAR *tFileName)
@@ -44,15 +45,8 @@ WinFile::~WinFile()
 		Close();
 	}
 	
-	if (_fileName)
-	{
-		delete[] _fileName;
-	}
-
-	if (_tFileName)
-	{
-		delete[] _tFileName;
-	}
+	delete[] _fileName;
+	delete[] _tFileName;
 }
 
 
@@ -80,9 +74,12 @@ size_lt WinFile::FileSize(const char *fileName)
 void WinFile::Close(HANDLE hFile)
 {
 	FlushFileBuffers(hFile); //?
-	if (!CloseHandle(hFile))
+	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		ThrowFileExceptionWithCode("Error occured while closing file!", GetLastError());
+		if (!CloseHandle(hFile))
+		{
+			ThrowFileExceptionWithCode("Error occured while closing file!", GetLastError());
+		}
 	}
 }
 
@@ -92,15 +89,23 @@ void WinFile::ParseMode(PDWORD creationDisposition, PDWORD desiredAccess, FileOp
 	if (mode == FileOpenMode::READONLY)
 	{
 		*desiredAccess = GENERIC_READ;
+		return;
+	}
+	if (mode == READWRITE)
+	{
+		*desiredAccess = GENERIC_READ | GENERIC_WRITE;
+		return;
 	}
 	if (mode == FileOpenMode::WRITE)
 	{
 		*desiredAccess = GENERIC_WRITE;
+		return;
 	}
-	if (mode == FileOpenMode::WRITEONEXISTS)
+	if (mode == FileOpenMode::WRITENEWFILE)
 	{
 		*desiredAccess = GENERIC_WRITE | GENERIC_READ;
 		*creationDisposition = CREATE_ALWAYS;
+		return;
 	}
 }
 

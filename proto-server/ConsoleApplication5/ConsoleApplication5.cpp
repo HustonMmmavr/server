@@ -7,16 +7,26 @@
 #include <stdlib.h>
 #include <vector>
 #include "file.h"
-
+#include "header1.h"
 int main()
 {
 	try
 	{
-		Server::GetServer().Commander();
+		setlocale(LC_CTYPE, ".1251");
+		char **strings;// { "afnwklef", "kfkewf","akef" };
+		//File::WriteAllCharStrings("newFile", strings, 3);
+
+		int num = File::ReadAllCharStrings("newFile", &strings);
+		Logger &logger = Logger::GetLogger();
+		logger.Log("error\r\n");
+		logger.Log("\r\n");
+		logger.Log("\r\n");
+		logger.Log("no");
+		//Server::GetServer().Commander();
 	}
 	catch (Exception &e)
 	{
-		printf("%s", e.what());
+		printf("%s %s", e.what(), ParseException(e.GetCode()));
 		getchar();
 		getchar();
 	}

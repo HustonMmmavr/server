@@ -207,7 +207,7 @@ public:
 	\param[in] size Size of data buffer.
 	\param[in] mode Open file mode.
 	*/
-	static void WriteAllBytes(const char *fileName, byte* data, size_lt size, FileOpenMode mode = WRITEONEXISTS);
+	static void WriteAllBytes(const char *fileName, byte* data, size_lt size, FileOpenMode mode = WRITENEWFILE);
 
 	/*!
 	\TODO
